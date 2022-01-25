@@ -38,9 +38,9 @@ export const App = () => {
             bad={bad}
             total={total}
             positivePercentage={Math.floor((good / total) * 100)}
-          ></Statistics>
+          />
         ) : (
-          <Notification message="There is no feedback"></Notification>
+          <Notification message="There is no feedback" />
         )}
       </Section>
     </>
