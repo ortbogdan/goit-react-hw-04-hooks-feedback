@@ -11,24 +11,24 @@ export const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
   const [total, setTotal] = useState(0);
-  const [percentage, setPercentage] = useState(0);
-  //   state = {
-  //   good: 0,
-  //   neutral: 0,
-  //   bad: 0
-  // }
-  const handleClick = (event) => {
-    const name = event.target.name;
-    console.log(name);
-  };
+
+  useEffect(() => {
+    setTotal(good + neutral + bad);
+  }, [good, neutral, bad]);
 
   return (
     <>
       <Section title={"Please leave feedback"}>
         <FeedbackOptions
-          options={{ good, neutral, bad }}
-          onLeaveFeedback={handleClick}
-        ></FeedbackOptions>
+          onGoodFeedback={setGood}
+          onNeutralFeedback={setNeutral}
+          onBadFeedback={setBad}
+        />
+        {/* <div>
+      <button type="button" onClick={()=>setGood(good+1)}>Good</button>
+      <button type="button" onClick={()=>setNeutral(neutral+1)}>Neutral</button>
+      <button type="button" onClick={()=>setBad(bad+1)}>Bad</button>
+        </div> */}
       </Section>
       <Section title="Statistics">
         {total ? (
@@ -37,7 +37,7 @@ export const App = () => {
             neutral={neutral}
             bad={bad}
             total={total}
-            positivePercentage={percentage}
+            positivePercentage={Math.floor((good / total) * 100)}
           ></Statistics>
         ) : (
           <Notification message="There is no feedback"></Notification>

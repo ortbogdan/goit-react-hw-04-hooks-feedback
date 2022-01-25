@@ -1,17 +1,31 @@
 import PropTypes from "prop-types";
+import { Button } from "./FeedbackOptions.styled";
 
-export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+export const FeedbackOptions = ({
+  onGoodFeedback,
+  onNeutralFeedback,
+  onBadFeedback,
+}) => {
+  const handleClick = (event, callback) => {
+    event.target.blur();
+    callback((prev) => prev + 1);
+  };
   return (
     <div>
-      {Object.keys(options).map((opt) => (
-        <button type="button" key={opt} name={opt} onClick={onLeaveFeedback}>
-          {opt}
-        </button>
-      ))}
+      <Button type="button" onClick={(e) => handleClick(e, onGoodFeedback)}>
+        Good
+      </Button>
+      <Button type="button" onClick={(e) => handleClick(e, onNeutralFeedback)}>
+        Neutral
+      </Button>
+      <Button type="button" onClick={(e) => handleClick(e, onBadFeedback)}>
+        Bad
+      </Button>
     </div>
   );
 };
 FeedbackOptions.propTypes = {
-  options: PropTypes.object.isRequired,
-  onLeaveFeedback: PropTypes.func.isRequired,
+  onGoodFeedback: PropTypes.func.isRequired,
+  onNeutralFeedback: PropTypes.func.isRequired,
+  onBadFeedback: PropTypes.func.isRequired,
 };
