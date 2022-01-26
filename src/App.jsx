@@ -15,20 +15,27 @@ export const App = () => {
   useEffect(() => {
     setTotal(good + neutral + bad);
   }, [good, neutral, bad]);
-
+  const handleUpdate = (type) => {
+    switch (type) {
+      case "good":
+        setGood(good + 1);
+        break;
+      case "neutral":
+        setNeutral(neutral + 1);
+        break;
+      case "bad":
+        setBad(bad + 1);
+        break;
+      default:
+    }
+  };
   return (
     <>
       <Section title={"Please leave feedback"}>
         <FeedbackOptions
-          onGoodFeedback={setGood}
-          onNeutralFeedback={setNeutral}
-          onBadFeedback={setBad}
+          options={{ good, neutral, bad }}
+          handleUpdate={handleUpdate}
         />
-        {/* <div>
-      <button type="button" onClick={()=>setGood(good+1)}>Good</button>
-      <button type="button" onClick={()=>setNeutral(neutral+1)}>Neutral</button>
-      <button type="button" onClick={()=>setBad(bad+1)}>Bad</button>
-        </div> */}
       </Section>
       <Section title="Statistics">
         {total ? (
@@ -46,5 +53,3 @@ export const App = () => {
     </>
   );
 };
-
-export default App;
