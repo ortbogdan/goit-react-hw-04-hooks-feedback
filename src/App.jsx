@@ -27,6 +27,7 @@ export const App = () => {
         setBad(bad + 1);
         break;
       default:
+        return;
     }
   };
   return (
